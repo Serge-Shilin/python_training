@@ -13,6 +13,14 @@ class NewContact(unittest.TestCase):
     def test_new_contact(self):
         wd = self.wd
         wd.get("http://localhost/addressbook/edit.php")
+
+    def login(self, password, wd, username):
+         # login
+        wd.find_element_by_name("user").click()
+        wd.find_element_by_name("pass").clear()
+        wd.find_element_by_name("pass").send_keys("%s" % password)
+        wd.find_element_by_name("user").clear()
+        wd.find_element_by_name("user").send_keys("%s" % username)
         wd.find_element_by_xpath("//input[@value='Login']").click()
         wd.find_element_by_xpath("//body").click()
         wd.find_element_by_name("firstname").click()
