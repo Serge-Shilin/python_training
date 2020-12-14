@@ -12,7 +12,7 @@ def app(request):
 
 
 def test_add_group(app):
-    app.login("secret", "admin")
+    app.session.login("secret", "admin")
     app.fill_group_form(Group( u"группа", u"группа", u"группа"))
-    app.logout()
+    app.session.logout()
 
