@@ -17,3 +17,4 @@ class Application:
     def destroy(self):
         wd = self.wd
         self.wd.quit()
+
