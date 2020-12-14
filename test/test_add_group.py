@@ -13,6 +13,6 @@ def app(request):
 
 def test_add_group(app):
     app.session.login("secret", "admin")
-    app.fill_group_form(Group( u"группа", u"группа", u"группа"))
+    app.group.create(Group(u"группа", u"группа", u"группа"))
     app.session.logout()
 
