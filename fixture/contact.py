@@ -63,7 +63,9 @@ class ContactHelper:
 
     def test_contact_update(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
+        wd.find_element_by_link_text("home page").click()
+        wd.find_element_by_id("13").click()
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys("contact.firstname")
@@ -92,7 +94,7 @@ class ContactHelper:
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").clear()
         wd.find_element_by_name("email").send_keys("contact.mail")
-        wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
+        wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
         wd.find_element_by_link_text("home page").click()
 
     def test_delete_first_contact(self):
