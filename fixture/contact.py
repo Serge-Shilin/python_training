@@ -106,8 +106,7 @@ class ContactHelper:
 
     def test_delete_first_contact(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home page").click()
-        wd.find_element_by_name("selected[]").click()
-        wd.find_element_by_name("delete").click()
-        wd.find_element_by_link_text("home page").click()
-
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        wd.find_element_by_xpath("(//input[@name='update'])[3]").click()
+        wd.find_element_by_xpath("(//img[@alt='Edit'])[11]").click()
+        wd.find_element_by_xpath("(//input[@name='update'])[3]").click()

@@ -1,13 +1,5 @@
-import pytest
 from model.contact import Contact
-from application import Application
 
-
-@pytest.fixture
-def app1(request):
-    fixture = Application()
-    request.addfinalizer(fixture.destroy)
-    return fixture
 
 
 def test_new_contact(app):
