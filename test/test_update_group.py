@@ -1,7 +1,14 @@
 from model.group import Group
 
 
-def test_update_first_group(app):
+
+def test_update_group_name(app):
     app.session.login("secret", "admin")
-    app.group.create(Group(u"11111", u"11111", u"11111"))
+    app.group.update_group(Group(name="New group"))
     app.session.logout()
+
+def test_update_group_header(app):
+    app.session.login("secret", "admin")
+    app.group.update_group(Group(header="New header"))
+    app.session.logout()
+
