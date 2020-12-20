@@ -51,6 +51,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
+        self.return_to_home_page()
 
     def contact_create(self, new_contact_data):
         wd = self.app.wd
