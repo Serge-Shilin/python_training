@@ -1,4 +1,5 @@
 
+from model.contact import Contact
 
 class ContactHelper:
 
@@ -42,9 +43,10 @@ class ContactHelper:
     def test_delete_first_contact(self):
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
-        self.accept_next_alert = True
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
+        wd.find_elements_by_css_selector("div.msgbox")
+        self.app.open_home_page()
 
     def contact_update(self, new_contact_data):
         wd = self.app.wd
@@ -66,6 +68,20 @@ class ContactHelper:
         wd = self.app.wd
         self.return_to_home_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_contacts_list(self):
+        wd = self.app.wd
+        self.return_to_home_page()
+        contacts = []
+        x = 1
+        for element in wd.find_elements_by_name("entry"):
+            x = x + 1
+            lastname = element.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(x) + "]/td[2]").text
+            firstname = element.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(x) + "]/td[3]").text
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(Contact(lastname=lastname, firstname=firstname,  id=id))
+        return contacts
+
 
 
 
