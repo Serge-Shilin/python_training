@@ -1,5 +1,6 @@
 
 from model.contact import Contact
+from random import randrange
 
 class ContactHelper:
 
@@ -40,20 +41,38 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
 
-    def test_delete_first_contact(self):
+    def select_contact(self):
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
+
+
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
+
+    def test_delete_first_contact(self):
+        self.test_delete_contact_by_index(0)
+
+
+    def test_delete_contact_by_index(self, index):
+        wd = self.app.wd
+        self.app.open_home_page()
+        self.select_contact_by_index(index)
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
         wd.find_elements_by_css_selector("div.msgbox")
         self.app.open_home_page()
         self.contact_cache = None
 
-
     def contact_update(self, new_contact_data):
+        self.contact_update_by_index(0)
+
+
+    def contact_update_by_index(self, index, new_contact_data):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
-        wd.find_element_by_name("selected[]").click()
+        self.select_contact_by_index(index)
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
