@@ -71,7 +71,6 @@ class ContactHelper:
     def contact_update_by_index(self, index, new_contact_data):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
-        #self.select_contact_by_index(index)
         wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
