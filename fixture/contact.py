@@ -1,6 +1,7 @@
 
 from model.contact import Contact
 
+
 class ContactHelper:
 
     def __init__(self, app):
@@ -44,15 +45,12 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
 
-
     def select_contact_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
 
-
     def test_delete_first_contact(self):
         self.test_delete_contact_by_index(0)
-
 
     def test_delete_contact_by_index(self, index):
         wd = self.app.wd
@@ -67,7 +65,6 @@ class ContactHelper:
     def contact_update(self):
         self.contact_update_by_index(0)
 
-
     def contact_update_by_index(self, index, new_contact_data):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
@@ -76,7 +73,6 @@ class ContactHelper:
         wd.find_element_by_name("update").click()
         self.return_to_home_page()
         self.contact_cache = None
-
 
     def contact_create(self, new_contact_data):
         wd = self.app.wd
@@ -90,7 +86,6 @@ class ContactHelper:
         wd = self.app.wd
         self.return_to_home_page()
         return len(wd.find_elements_by_name("selected[]"))
-
 
     contact_cache = None
 

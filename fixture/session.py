@@ -4,7 +4,6 @@ class SessionHelper:
     def __init__(self, app):
         self.app = app
 
-
     def login(self, password, username):
         wd = self.app.wd
         self.app.open_home_page()
@@ -32,7 +31,6 @@ class SessionHelper:
         wd = self.app.wd
         return len(wd.find_elements_by_link_text("Logout")) > 0
 
-
     def ensure_login(self, password, username):
         wd = self.app.wd
         if self.is_logged_in():
@@ -41,6 +39,3 @@ class SessionHelper:
         else:
             self.logout()
         self.login(password, username)
-
-
-

@@ -1,7 +1,6 @@
 from model.contact import Contact
 
 
-
 def test_new_contact(app):
     old_contacts = app.contact.get_contacts_list()
     contact = Contact(firstname="Сергей", middlename="Сергеевич", lastname="Сергеев", nickname="Серега", address="г. Казань",
