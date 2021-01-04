@@ -1,5 +1,6 @@
 
 from model.contact import Contact
+import re
 
 
 class ContactHelper:
@@ -113,6 +114,13 @@ class ContactHelper:
         cell = row.find_elements_by_tag_name("td")[7]
         cell.find_element_by_tag_name("a").click()
 
+    def open_contact_view_by_index(self, index):
+        wd = self.app.wd
+        self.return_to_home_page()
+        row = wd.find_elements_by_name("entry")[index]
+        cell = row.find_elements_by_tag_name("td")[6]
+        cell.find_element_by_tag_name("a").click()
+
     def get_contact_info_from_edit_page(self, index):
         wd = self.app.wd
         self.open_contact_to_edit_by_index(index)
@@ -126,6 +134,16 @@ class ContactHelper:
         return Contact(firstname=firstname, lastname=lastname, id=id, homephone=homephone, work=workphone,
                        mobile=mobilephone, fax=secondaryphone)
 
+    def get_contact_from_view_page(self, index):
+        wd = self.app.wd
+        self.open_contact_view_by_index(index)
+        text = wd.find_element_by_id("content").text
+        homephone = re.search("H: (.*)", text).group(1)
+        workphone = re.search("W: (.*)", text).group(1)
+        mobilephone = re.search("M: (.*)", text).group(1)
+        secondaryphone = re.search("P: (.*)", text).group(1)
+        return Contact(homephone=homephone, work=workphone,
+                       mobile=mobilephone, fax=secondaryphone)
 
 
 
