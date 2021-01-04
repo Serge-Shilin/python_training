@@ -8,7 +8,7 @@ def test_delete_some_contact(app):
         app.contact.contact_create(
             Contact(firstname="Сергей", middlename="Сергеевич", lastname="Сергеев", nickname="Серега",
                     address="г. Казань",
-                    homephone="11111", mobile="22222",
+                    homephone="11111", mobilephone="22222", secondaryphone="121212",
                     workphone="333333", mail="sergei@gmail.com", bday="", bmounth="May", byear="1975"))
     old_contacts = app.contact.get_contacts_list()
     index = randrange(len(old_contacts))
