@@ -1,7 +1,7 @@
 from model.contact import Contact
 
 
-def test_new_contact(app, json_contact):
+def test_new_contact(app, json_contacts):
     contact = json_contacts
     old_contacts = app.contact.get_contacts_list()
     app.contact.contact_create(contact)
