@@ -8,12 +8,12 @@ def test_contact_firstname(app):
             Contact(firstname="Сергей", middlename="Сергеевич", lastname="Сергеев", nickname="Серега",
                     address="г. Казань",
                     homephone="11111", mobile="22222",
-                    work="333333", mail="sergei@gmail.com", bday="", bmounth="May", byear="1975"))
+                    work="333333", email="sergei@gmail.com", email2=111, email3=222, bday="", bmounth="May", byear="1975"))
     old_contacts = app.contact.get_contacts_list()
     index = randrange(len(old_contacts))
     contact = Contact(firstname="aaaaaa", middlename="aaaaaaa", lastname="aaaaaaa", nickname="aaaaa", address="aaaaa",
                 homephone="777777", mobile="77777",
-                work="77777", mail="@", bday="", bmounth="", byear="1111")
+                work="77777", email="se333@gmail.com", email2=33, email3=44, bday="", bmounth="", byear="1111")
     contact.id = old_contacts[index].id
     app.contact.contact_update_by_index(index, contact)
     new_contacts = app.contact.get_contacts_list()
