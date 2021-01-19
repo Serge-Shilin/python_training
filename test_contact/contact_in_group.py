@@ -17,8 +17,8 @@ def test_add_contact_in_group(app, db, check_ui):
     new_contacts = db.get_groups_contact_list()
     old_contacts.remove(contact)
     assert old_contacts == new_contacts
-    #if check_ui:
-        #assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.group.get_group_list(), key=Contact.id_or_max)
+    if check_ui:
+        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.group.get_group_list(), key=Contact.id_or_max)
 
 
 def test_remove_contact_in_group(app, db, check_ui):

@@ -1,5 +1,5 @@
 from selenium.webdriver.support.select import Select
-
+from fixture.db import DbFixture
 from model.contact import Contact
 import re
 
@@ -169,7 +169,6 @@ class ContactHelper:
     def count_group(self):
         wd = self.app.wd
         self.return_to_home_page()
-        self.select_group()
         return len(wd.find_elements_by_name("selected[]"))
 
     def select_none(self):
