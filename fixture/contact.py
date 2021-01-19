@@ -1,3 +1,4 @@
+from selenium.webdriver.support.select import Select
 
 from model.contact import Contact
 import re
@@ -164,6 +165,51 @@ class ContactHelper:
         wd.find_elements_by_css_selector("div.msgbox")
         self.app.open_home_page()
         self.contact_cache = None
+
+    def count_group(self):
+        wd = self.app.wd
+        self.return_to_home_page()
+        self.select_group()
+        return len(wd.find_elements_by_name("selected[]"))
+
+    def select_none(self):
+        wd = self.app.wd
+        self.app.open_home_page()
+        Select(wd.find_element_by_name("group")).select_by_visible_text("[none]")
+        wd.find_element_by_xpath("//option[@value='[none]']").click()
+
+    def select_group(self):
+        wd = self.app.wd
+        self.app.open_home_page()
+        Select(wd.find_element_by_name("to_group")).select_by_visible_text("name25HM")
+        wd.find_element_by_xpath("(//option[@value='119'])[2]").click()
+
+    def add_contact_in_group(self):
+        wd = self.app.wd
+        #self.app.open_home_page()
+        #Select(wd.find_element_by_name("group")).select_by_visible_text("[none]")
+        #wd.find_element_by_xpath("//option[@value='[none]']").click()
+        #self.app.contact_create()
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_name("to_group").click()
+        Select(wd.find_element_by_name("to_group")).select_by_visible_text("name25HM")
+        wd.find_element_by_xpath("(//option[@value='119'])[2]").click()
+        wd.find_element_by_name("add").click()
+        self.app.open_home_page()
+
+    def remove_contact_in_group(self):
+        wd = self.app.wd
+        self.app.open_home_page()
+        wd.find_element_by_name("group").click()
+        Select(wd.find_element_by_name("group")).select_by_visible_text("name25HM")
+        wd.find_element_by_xpath("//option[@value='119']").click()
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_name("remove").click()
+        #self.accept_next_alert = True
+        #wd.find_element_by_xpath("//input[@value='Delete']").click()
+        #wd.switch_to_alert().accept()
+        #wd.find_elements_by_css_selector("div.msgbox")
+        wd.find_element_by_link_text("home").click()
 
 
 
