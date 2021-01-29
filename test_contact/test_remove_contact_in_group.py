@@ -12,7 +12,7 @@ def test_remove_contact_in_group(app, db, check_ui):
                        byear="1975")
     if len(db.get_group_list()) == 0:
         app.group.create(Group(name="test"))
-    if app.contact.count_contacts_not_in_group() == 0:
+    if len(db.get_contact_list_not_group()) == 0:
         app.contact.contact_create(contact)
         app.contact.select_none()
         app.contact.add_contact_in_group()

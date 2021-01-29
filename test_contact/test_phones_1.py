@@ -21,21 +21,22 @@ def test_contact_info_home_vs_db(app, db):
     assert sorted(contact_from_home_page, key=Contact.id_or_max) == sorted(contact_from_db, key=Contact.id_or_max)
 
 
-def test_contact_info_home_vs_viev(app, db):
-    if len(db.get_contact_list()) == 0:
-        app.contact.create(Contact(firstname="Иван", middlename="Иванович", lastname="Иванов",
-                                   homephone="111", mobile="111", work="111",
-                                   address="Казань",
-                                   fax="111", email="111u", email2="111",
-                                   email3="111"))
-    list_contacts = app.contact.get_contacts_list()
-    index = randrange(len(list_contacts))
-    contact_from_view_page = app.contact.get_contact_from_view_page(index)
-    contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
-    assert contact_from_view_page.homephone == contact_from_edit_page.homephone
-    assert contact_from_view_page.mobile == contact_from_edit_page.mobile
-    assert contact_from_view_page.work == contact_from_edit_page.work
-    assert contact_from_view_page.fax == contact_from_edit_page.fax
+#def test_contact_info_home_vs_viev(app, db):
+    #if len(db.get_contact_list()) == 0:
+        #app.contact.create(Contact(firstname="Иван", middlename="Иванович", lastname="Иванов",
+                                  # homephone="111", mobile="111", work="111",
+                                  # address="Казань",
+                                  # fax="111", email="111u", email2="111",
+                                  # email3="111"))
+    #list_contacts = app.contact.get_contacts_list()
+    #index = randrange(len(list_contacts))
+    #contact_from_view_page = app.contact.get_contact_from_view_page(index)
+    #contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
+    #assert sorted(contact_from_home_page, key=Contact.id_or_max) == sorted(contact_from_db, key=Contact.id_or_max)
+    #ssert contact_from_view_page.homephone == contact_from_edit_page.homephone
+    #assert contact_from_view_page.mobile == contact_from_edit_page.mobile
+    #assert contact_from_view_page.work == contact_from_edit_page.work
+    #assert contact_from_view_page.fax == contact_from_edit_page.fax
 
 
 def clear(s):
