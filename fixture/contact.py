@@ -1,8 +1,8 @@
 from selenium.webdriver.support.select import Select
-from fixture.db import DbFixture
+from fixture.orm import ORMFixture
 from model.contact import Contact
 import re
-
+from selenium.webdriver.common.by import By
 
 class ContactHelper:
 
@@ -92,6 +92,19 @@ class ContactHelper:
         self.return_to_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
+    def count_contacts_in_group(self):
+        wd = self.app.wd
+        self.return_to_home_page()
+        self.select_none()
+        return len(wd.find_elements_by_name("selected[]"))
+
+    def count_contacts_not_in_group(self):
+        wd = self.app.wd
+        self.return_to_home_page()
+        return len(wd.find_elements_by_name("selected[]"))
+
+
+
     contact_cache = None
 
     def get_contacts_list(self):
@@ -177,22 +190,11 @@ class ContactHelper:
         Select(wd.find_element_by_name("group")).select_by_visible_text("[none]")
         wd.find_element_by_xpath("//option[@value='[none]']").click()
 
-    def select_group(self):
-        wd = self.app.wd
-        self.app.open_home_page()
-        Select(wd.find_element_by_name("to_group")).select_by_visible_text("name25HM")
-        wd.find_element_by_xpath("(//option[@value='119'])[2]").click()
-
     def add_contact_in_group(self):
         wd = self.app.wd
-        #self.app.open_home_page()
-        #Select(wd.find_element_by_name("group")).select_by_visible_text("[none]")
-        #wd.find_element_by_xpath("//option[@value='[none]']").click()
-        #self.app.contact_create()
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_name("to_group").click()
-        Select(wd.find_element_by_name("to_group")).select_by_visible_text("name25HM")
-        wd.find_element_by_xpath("(//option[@value='119'])[2]").click()
+        Select(wd.find_element_by_name("to_group")).select_by_visible_text("test")
         wd.find_element_by_name("add").click()
         self.app.open_home_page()
 
@@ -200,14 +202,9 @@ class ContactHelper:
         wd = self.app.wd
         self.app.open_home_page()
         wd.find_element_by_name("group").click()
-        Select(wd.find_element_by_name("group")).select_by_visible_text("name25HM")
-        wd.find_element_by_xpath("//option[@value='119']").click()
+        Select(wd.find_element_by_name("group")).select_by_visible_text("test")
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_name("remove").click()
-        #self.accept_next_alert = True
-        #wd.find_element_by_xpath("//input[@value='Delete']").click()
-        #wd.switch_to_alert().accept()
-        #wd.find_elements_by_css_selector("div.msgbox")
         wd.find_element_by_link_text("home").click()
 
 
