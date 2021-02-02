@@ -14,11 +14,11 @@ def test_remove_contact_in_group(app, db, check_ui):
         app.group.create(Group(name="test"))
     if len(db.get_contact_list_not_group()) == 0:
         app.contact.contact_create(contact)
+    if len(db.get_group_list_not_contacts()) == 0:
         app.contact.select_none()
         app.contact.add_contact_in_group()
     g = db.get_group_list()[0]
     old_contacts_in_groups = db.get_contacts_in_group(g)
-    app.contact.select_none()
     app.contact.remove_contact_in_group()
     new_contacts = db.get_contacts_in_group(g)
     assert len(old_contacts_in_groups) - 1 == len(new_contacts)
