@@ -15,6 +15,8 @@ def test_add_contact_in_group(app, db, check_ui):
         app.contact.contact_create(contact)
     if len(db.get_group_list()) == 0:
         app.group.create(Group(name="test"))
+    if db.all_contacts_in_all_groups(g):
+        app.group.create(Group(name='Test'))
     old_contacts_in_groups = db.get_contacts_in_group(g)
     app.contact.select_none()
     app.contact.add_contact_in_group()

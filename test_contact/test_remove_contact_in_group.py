@@ -3,6 +3,7 @@ from model.group import Group
 from fixture.orm import ORMFixture
 
 
+
 def test_remove_contact_in_group(app, db, check_ui):
     db = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
     contact = Contact(firstname="Сергей", middlename="Сергеевич", lastname="Сергеев", nickname="Серега",
