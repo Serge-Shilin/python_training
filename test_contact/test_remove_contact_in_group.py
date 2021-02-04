@@ -1,3 +1,5 @@
+import random
+
 from model.contact import Contact
 from model.group import Group
 from fixture.orm import ORMFixture
@@ -18,7 +20,8 @@ def test_remove_contact_in_group(app, db, check_ui):
     if len(db.get_group_list_not_contacts()) == 0:
         app.contact.select_none()
         app.contact.add_contact_in_group()
-    g = db.get_group_list()[0]
+    groups = db.get_group_list()
+    g = random.choice(groups)
     old_contacts_in_groups = db.get_contacts_in_group(g)
     app.contact.remove_contact_in_group()
     new_contacts = db.get_contacts_in_group(g)
