@@ -1,32 +1,28 @@
+from model.group import Group
+from model.contact import Contact
 import random
 
-from model.contact import Contact
-from model.group import Group
-from fixture.orm import ORMFixture
 
-
-
-def test_remove_contact_in_group(app, db, check_ui):
-    db = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
-    contact = Contact(firstname="Сергей", middlename="Сергеевич", lastname="Сергеев", nickname="Серега",
-                       address="г. Казань",
-                       homephone="11111", mobile="22222", fax="121212",
-                       work="333333", email="sergei@gmail.com", email2=1212, email3=1221, bday="", bmounth="May",
-                       byear="1975")
+def test_delete_contact_from_group(app, db, check_ui):
     if len(db.get_group_list()) == 0:
         app.group.create(Group(name="test"))
-    if len(db.get_contact_list_not_group()) == 0:
-        app.contact.contact_create(contact)
-    if len(db.get_group_list_not_contacts()) == 0:
-        app.contact.select_none()
-        app.contact.add_contact_in_group()
-    groups = db.get_group_list()
-    g = random.choice(groups)
-    old_contacts_in_groups = db.get_contacts_in_group(g)
-    app.contact.remove_contact_in_group()
-    new_contacts = db.get_contacts_in_group(g)
-    assert len(old_contacts_in_groups) - 1 == len(new_contacts)
+    if len(db.get_contact_list()) == 0:
+        app.contact.contact_create(Contact(firstname="test"))
+    if len(db.get_groups_with_contacts()) == 0:
+        gs = db.get_group_list()
+        g = random.choice(gs)
+        cs = db.get_contacts_not_in_group()
+        c = random.choice(cs)
+        app.contact.add_contact_in_group(c.id, g.id)
+    gs = db.get_groups_with_contacts()
+    g = random.choice(gs)
+    old_contacts = db.get_contacts_in_group()
+    c = random.choice(old_contacts)
+    app.contact.delete_contact_from_group(c.id, g.id)
+    new_contacts = db.get_contacts_in_group()
+    assert len(old_contacts) - 1 == len(new_contacts)
     if check_ui:
-        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.group.get_group_list(), key=Contact.id_or_max)
+        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_contact_list(),
+                                                                         key=Contact.id_or_max)
 
 
